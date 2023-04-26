@@ -1,5 +1,5 @@
 import app from './app.js';
-import db from './src/database/database.js';
+import db from './database/database.js';
 
 let alter;
 const IS_DEV = process.env.IS_DEV;
