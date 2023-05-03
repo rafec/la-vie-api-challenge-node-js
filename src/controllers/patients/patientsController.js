@@ -1,5 +1,4 @@
 import { Patient as PatientRepository } from '../../models/index.js';
-import bcrypt from 'bcryptjs';
 
 async function findAllPatients(request, response) {
     try {
@@ -7,7 +6,7 @@ async function findAllPatients(request, response) {
         response.status(200).json({ message: 'Succesfull operation.', data: patients });
     } catch (error) {
         console.log('Error retrieving patients records: ', error);
-        response.status(500).json({ message: 'Operation failed.', data: [] });
+        response.status(404).json({ message: 'Operation failed.', data: [] });
     };
 };
 
