@@ -76,3 +76,5 @@ async function deletePatient(request, response) {
         response.status(404).json({ message: 'Operation failed', data: [] });
     };
 };
+
+export default { findAllPatients, findPatient, addPatient, updatePatient, deletePatient };
