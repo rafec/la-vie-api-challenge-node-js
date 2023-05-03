@@ -17,7 +17,7 @@ async function findPatient(request, response) {
         response.status(200).json({ message: 'Succesfull operation', data: patient });
     } catch (error) {
         console.log(`Error retrieving patient records with id: ${patientId}`, error);
-        response.status(404).json({ message: 'Operation failed.', data: 'Id not found.' })
+        response.status(404).json({ message: 'Operation failed', data: 'Id not found.' })
     };
 };
 
