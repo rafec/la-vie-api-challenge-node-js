@@ -36,3 +36,26 @@ async function addPatient(request, response) {
         response.status(400).json({ message: 'Operation failed', data: 'Requisition error' });
     };
 };
+
+async function updatePatient(request, response) {
+    const patientId = request.params.id;
+    try {
+        await PatientRepository.update({
+            name: request.body.name,
+            email: request.body.email,
+            age: request.body.age
+        },
+            {
+                where: {
+                    id: patientId
+                }
+            }
+        );
+
+        const updatedPatient = await PatientRepository.findByPk(patientId);
+        response.status(200).json({ message: 'Succesfull operation', data: updatedPatient });
+    } catch (error) {
+        console.log(`Error updating patient with id: ${patientId}`, error);
+        response.status(400).json({ message: 'Operation failed', data: {} });
+    };
+};
