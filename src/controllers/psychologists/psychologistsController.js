@@ -78,3 +78,5 @@ async function deletePsychologist(request, response) {
         response.status(404).json({ message: 'Operation failed', data: [] });
     };
 };
+
+export default { findAllPsychologists, findPsychologist, addPsychologist, updatePsychologist, deletePsychologist };
