@@ -37,3 +37,27 @@ async function addPsychologist(request, response) {
         response.status(400).json({ message: 'Operation failed', data: 'Requisition error' });
     };
 };
+
+async function updatePsychologist(request, response) {
+    const psychologistId = request.params.id;
+    try {
+        await PsychologistRepository.update({
+            name: request.body.name,
+            email: request.body.email,
+            password: request.body.password, //remember of testing if this'll be a problem (not encrypting here)
+            presentation: request.body.presentation
+        },
+            {
+                where: {
+                    id: psychologistId
+                }
+            }
+        );
+
+        const updatedPsychologist = await PsychologistRepository.findByPk(psychologistId);
+        response.status(200).json({ message: 'Succesfull operation', data: updatedPsychologist });
+    } catch (error) {
+        console.log(`Error updating psychologist with id: ${psychologistId} `, error);
+        response.status(400).json({ message: 'Operation failed', data: {} });
+    };
+};
