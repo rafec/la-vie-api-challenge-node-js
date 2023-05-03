@@ -21,3 +21,18 @@ async function findPatient(request, response) {
         response.status(404).json({ message: 'Operation failed.', data: 'Id not found.' })
     };
 };
+
+async function addPatient(request, response) {
+    try {
+        const createdPatient = await PatientRepository.create({
+            name: request.body.name,
+            email: request.body.email,
+            age: request.body.age
+        });
+
+        response.status(201).json({ message: 'Succesfull operation', data: createdPatient });
+    } catch (error) {
+        console.log('Error adding patient', error);
+        response.status(400).json({ message: 'Operation failed', data: 'Requisition error' });
+    };
+};
