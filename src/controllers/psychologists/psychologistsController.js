@@ -61,3 +61,20 @@ async function updatePsychologist(request, response) {
         response.status(400).json({ message: 'Operation failed', data: {} });
     };
 };
+
+async function deletePsychologist(request, response) {
+    const psychologistId = request.params.id;
+    try {
+        await PsychologistRepository.destroy({
+            where: {
+                id: psychologistId
+            }
+        });
+
+        const allPsychologists = await PsychologistRepository.findAll();
+        response.status(204).json({ message: 'Succesfull operation', data: allPsychologists });
+    } catch (error) {
+        console.log(`Error deleting psychologist with id: ${psychologistId} `, error);
+        response.status(404).json({ message: 'Operation failed', data: [] });
+    };
+};
