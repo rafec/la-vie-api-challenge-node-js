@@ -59,3 +59,20 @@ async function updatePatient(request, response) {
         response.status(400).json({ message: 'Operation failed', data: {} });
     };
 };
+
+async function deletePatient(request, response) {
+    const patientId = request.params.id;
+    try {
+        await PatientRepository.destroy({
+            where: {
+                id: patientId
+            }
+        });
+
+        const allPatients = await PatientRepository.findAll();
+        response.status(204).json({ message: 'Succesfull operation', data: allPatients });
+    } catch (error) {
+        console.log(`Error deleting patient with id: ${patientId}`, error);
+        response.status(404).json({ message: 'Operation failed', data: [] });
+    };
+};
